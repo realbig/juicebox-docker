@@ -15,3 +15,7 @@ wp-content/upgrade/*
 
 wp-content/mu-plugins/*
 !wp-content/mu-plugins/mailhog.php
+
+wordpress/*
+juicebox
+juicebox/*
