@@ -17,3 +17,27 @@ Clone the website repository to `./juicebox` within this one.
 - You may want to rename the "Rename WP Login" plugin temporarily in order to force-deactivate it.
 - You may also want to disable the SMTP plugin. While it will prevent emails being sent due to an IP Address mismatch, MailHog can't capture them with it active
     - Be sure to copy back in the MailHog mu-plugin from the Docker setup! https://github.com/d4mation/wp-docker/blob/master/wp-content/mu-plugins/mailhog.php
+
+---
+
+You will also need to make the following changes to the Juicebox setup (At least temporarily)
+
+- Add the followeing to the bottom of `juicebox/config/deploy.rb`
+```
+# This is the local, Docker container for mySQL
+# This is specific to Eric Defore's (RBM) setup
+server "localhost", user: 'wp', 'password': 'password', roles: %w{dev}
+set :dev_path, '~'
+```
+- Add the following to `juicebox/.gitignore`
+```
+# Specific to Eric Defore's (RBM) setup
+web/app/mu-plugins/mailhog.php
+web/app/mu-plugins-bak/
+```
+- Add the following to `juicebox/Gemfile`
+```
+# Support OpenSSH keys
+gem 'ed25519', '>= 1.2', '< 2.0'
+gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
+```
